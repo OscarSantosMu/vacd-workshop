@@ -339,6 +339,21 @@ resource "azurerm_key_vault_secret" "key_vault_secret_vmpassword" {
 }
 ```
 
+### Remote state
+
+You will need to have an existing storage account with a blob container.
+```t
+# Define Terraform backend using a blob storage container on Microsoft Azure for storing the Terraform state
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "vacd-tfstate"
+    storage_account_name = "vacdstorageacc"
+    container_name       = "tfstate"
+    key                  = "terraform.tfstate"
+  }
+}
+```
+
 ## Resources
 
 ### Azure DevOps
