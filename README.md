@@ -14,7 +14,7 @@
 3. [Demo](#demo)
     - [Initial Code](#initial-code)
     - [Final Code](#final-code)
-4. [Resources]
+4. [Resources](#resources)
 
 ## Context
 With the increase in cloud application development, the complexity of infrastructure management has increased as well. Although cloud solution providers (CSPs) provide us with much of the administration, there are still certain elements that remain our responsibility as a customer. This is why Infrastructure as Code (IaC) is having a big boom, coupled with automation through pipelines and code management that allow us to know exactly the status of the deployed infrastructure. In this session we will use Azure DevOps for the entire development lifecycle and Terraform within Azure Pipelines.
