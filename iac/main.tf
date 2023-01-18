@@ -61,7 +61,7 @@ resource "azurerm_network_interface_security_group_association" "example" {
 }
 
 resource "azurerm_windows_virtual_machine" "example" {
-  name                = "vm"
+  name                = local.virtual_machine_name
   resource_group_name = azurerm_resource_group.resource_group.name
   location            = azurerm_resource_group.resource_group.location
   size                = "Standard_F2"
