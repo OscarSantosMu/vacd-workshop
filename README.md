@@ -101,7 +101,7 @@ resource "azurerm_network_interface_security_group_association" "example" {
 }
 
 resource "azurerm_windows_virtual_machine" "example" {
-  name                = "vm"
+  name                = local.virtual_machine_name
   resource_group_name = azurerm_resource_group.resource_group.name
   location            = azurerm_resource_group.resource_group.location
   size                = "Standard_F2"
@@ -163,7 +163,7 @@ resource "azurerm_public_ip" "public_ip" {
 }
 
 resource "azurerm_bastion_host" "main" {
-  name                   = loca.bastion_name
+  name                   = local.bastion_name
   location               = azurerm_resource_group.resource_group.location
   resource_group_name    = azurerm_resource_group.resource_group.name
   copy_paste_enabled     = true
@@ -284,7 +284,7 @@ resource "azurerm_network_security_group" "bastion-nsg" {
 }
 
 resource "azurerm_windows_virtual_machine" "example" {
-  name                = "vm"
+  name                = local.virtual_machine_name
   resource_group_name = azurerm_resource_group.resource_group.name
   location            = azurerm_resource_group.resource_group.location
   size                = "Standard_F2"
