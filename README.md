@@ -14,6 +14,7 @@
 3. [Demo](#demo)
     - [Initial Code](#initial-code)
     - [Final Code](#final-code)
+    - [Final step](#final-step)
 4. [Resources](#resources)
 
 ## Context
@@ -35,7 +36,8 @@ main.tf has the rdp implementation
 
 ## Demo
 
-### Initial Code
+<details>
+<summary><h3>Initial Code</h3> <i>click here</i></summary>
 
 ```t
 resource "azurerm_resource_group" "resource_group" {
@@ -124,8 +126,10 @@ resource "azurerm_windows_virtual_machine" "example" {
   }
 }
 ```
+</details>
 
-### Final code
+<details>
+<summary><h3>Final Code</h3> <i>click here</i></summary>
 
 ```t
 resource "azurerm_resource_group" "resource_group" {
@@ -338,17 +342,39 @@ resource "azurerm_key_vault_secret" "key_vault_secret_vmpassword" {
   ]
 }
 ```
+</details>
+
+### Final step
+
+Add a PowerShell script task after terraform install task, and use an inline script with the content of [create-backend.ps1](script/create-backend.ps1), that script will create a **backend.tf** at the pipeline working directory, inside the *iac* folder.
+
+Later, change the config directory to *iac* for each terraform task.
+
+Run the pipeline.
+
+![](static/azure-devops-pipeline-terraform.png)
+
+After success, review your resource groups. It should be there.
+![](static/azure-resource-group.png)
+
+Add an access policy to make the secret visible to you.
+![](static/access-policies.png)
+
+Connect to the vm with bastion using a secret from the created azure key vault.
+![](static/az-vm-bastion.png)
 
 ### Remote state
+
+If you are planning to use the terraform state from the storage account outside of the azure pipeline you will need the following file in the *iac* folder.
 
 You will need to have an existing storage account with a blob container.
 ```t
 # Define Terraform backend using a blob storage container on Microsoft Azure for storing the Terraform state
 terraform {
   backend "azurerm" {
-    resource_group_name  = "vacd-tfstate"
-    storage_account_name = "vacdstorageacc"
-    container_name       = "tfstate"
+    resource_group_name  = "your_resource_group_name"
+    storage_account_name = "your_storage_account_name"
+    container_name       = "your_container_name"
     key                  = "terraform.tfstate"
   }
 }
